@@ -17,7 +17,7 @@ onready var selected_phase = Globals.phases_keys[ Globals.actual_phase ]
 
 # PT_BR: Guarda o resultado que o jogador fez
 # EN_US: Stores the player result
-var result := 0.0
+
 
 # PT_BR: Armazena o progresso atual da barra de progresso
 # EN_US: Stores the actual progress from progress bar
@@ -47,17 +47,17 @@ const results_texts: Dictionary = {
 func _ready():
 	# PT_BR: Define uma variável "result" como o resultado de uma operação entre os scores da fase
 	# EN_US: Defines a variable "result" as the result of a operation between the phase scores
-	result = float(Globals.actual_score * 100) / float(Globals.phases_max_score[ selected_phase ])
+	Globals.result = float(Globals.actual_score * 100) / float(Globals.phases_max_score[ selected_phase ])
 	
 	if Globals.lose_by_time:
-		result = 0
+		Globals.result = 0
 	
-	if result > Globals.player_phase_score[selected_phase]:
-		Globals.player_phase_score[selected_phase] = result
+	if Globals.result > Globals.player_phase_score[selected_phase]:
+		Globals.player_phase_score[selected_phase] = Globals.result
 	
-	if result < 56:
+	if Globals.result < 56:
 		back_button.text = "Recomeçar"
-	elif result >= 56:
+	elif Globals.result >= 56:
 		back_button.text = "Continuar"
 	
 	# PT_BR: Defina qual texto e sprite irá aparecer de acordo com o valor da variável "result"
@@ -65,13 +65,13 @@ func _ready():
 	if Globals.lose_by_time:
 		result_description.bbcode_text = results_texts[4]
 		paula_image.texture = paula_without_time
-	elif result < 56 :
+	elif Globals.result < 56 :
 		result_description.bbcode_text = results_texts[0]
 		paula_image.texture = paula_bad
-	elif result < 73:
+	elif Globals.result < 73:
 		result_description.bbcode_text = results_texts[1]
 		paula_image.texture = paula_low
-	elif result < 85:
+	elif Globals.result < 85:
 		result_description.bbcode_text = results_texts[2]
 		paula_image.texture = paula_medium
 	else:
@@ -93,14 +93,14 @@ func _change_bar():
 	# PT_BR (2): A estrela compara o valor de "result" e define o quão será preenchida
 	# EN_US (1): While "count" is lower or equal to "result", 
 	# EN_US (2): The star compares the value of "result" and defunes how much the will be fullfield
-	while count <= result and not Globals.lose_by_time:
+	while count <= Globals.result and not Globals.lose_by_time:
 		score_bar.value = count
 		if 53 < count and count < 55:
-			star1.change_value(clamp((result - 53), 0, 3)) 
+			star1.change_value(clamp((Globals.result - 53), 0, 3)) 
 		if 69 < count and count < 71:
-			star2.change_value(clamp((result - 69), 0, 4))
+			star2.change_value(clamp((Globals.result - 69), 0, 4))
 		if 81 < count and count < 83:
-			star3.change_value(clamp((result - 81), 0, 4))
+			star3.change_value(clamp((Globals.result - 81), 0, 4))
 		
 		final_score.text = ("%00.0f" % count) + "%"
 		count += 0.5
@@ -111,7 +111,7 @@ func _change_bar():
 # EN_US: Open the phases scene
 func _on_BackButton_pressed():
 	var path = ""
-	if result >= 56:
+	if Globals.result >= 56:
 		path = Globals.good_end_phase_path[ selected_phase ]
 	else:
 		path = Globals.bad_end_phase_path[ selected_phase ]

@@ -28,7 +28,6 @@
 [ext_resource path="res://assets/buttons/hover_icon_pause.png" type="Texture" id=26]
 [ext_resource path="res://assets/Audio/effects/Click.mp3" type="AudioStream" id=27]
 
-
 [sub_resource type="DynamicFont" id=1]
 size = 31
 outline_size = 2
@@ -290,6 +289,16 @@ texture_progress = ExtResource( 22 )
 [node name="ClickAudio" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 27 )
 bus = "SFX"
+
+[node name="UserInfoLabel" type="RichTextLabel" parent="."]
+modulate = Color( 0.0313726, 0, 0, 1 )
+self_modulate = Color( 0.0705882, 0.00392157, 0.00392157, 1 )
+margin_left = 176.0
+margin_top = 640.0
+margin_right = 464.0
+margin_bottom = 672.0
+rect_scale = Vector2( 1.72044, 1.80547 )
+tab_size = 6
 
 [connection signal="ana_fineshed_task" from="Map" to="." method="_on_Map_ana_fineshed_task"]
 [connection signal="bento_fineshed_task" from="Map" to="." method="_on_Map_bento_fineshed_task"]

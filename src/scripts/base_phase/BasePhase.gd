@@ -1,5 +1,4 @@
 extends Node2D
-
 # PT_BR: Exporta a variável para selecionar a fase
 # EN_US: Exports the variable for select the phase
 export(Globals.PHASES) var phase_key = Globals.PHASES.PHASE_1
@@ -43,6 +42,7 @@ onready var max_score = Globals.phases_max_score[ Globals.phases_keys[phase_key]
 
 
 func _ready():
+	get_node("UserInfoLabel").text = "Você está logado como: " + Globals.userinfo.email
 	# PT_BR: Toca a música da fase
 	# EN_US: Plays the phase music
 	Audio.change_music(Globals.phase_musics[ Globals.phases_keys[phase_key] ])
