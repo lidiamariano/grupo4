@@ -83,6 +83,7 @@ var effects_volume
 var result := 0.0
 #variável que armazena os dados do usuário
 var userinfo = null
+var total_score = 0
 
 # PT_BR (1): Função que atualiza o score atual
 # PT_BR (2): Recebe new_value para atualizar o valor do score: int 

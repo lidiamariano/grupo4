@@ -18,7 +18,7 @@ func _on_FirebaseAuth_login_succeeded(auth_info):
 	Globals.userinfo = auth_info
 	# Adicionar estas linhas para criar um novo documento para o usuário no Firestore
 	var firestore_collection : FirestoreCollection = Firebase.Firestore.collection('userdata')
-	var add_task : FirestoreTask = firestore_collection.add(Globals.userinfo.email, {'name': Globals.userinfo.email, 'score': Globals.result})
+	var add_task : FirestoreTask = firestore_collection.add(Globals.userinfo.email, {'name': Globals.userinfo.email, 'score': 0})
 	var addedUser : FirestoreDocument = yield(add_task, "task_finished")
 	print("Added new document for user.")
 
@@ -84,3 +84,5 @@ func _on_DeleteRecord_button_up():
 func _on_RemoveUser_button_up():
 	Firebase.Auth.delete_user_account()
 	pass # Replace with function body.
+
+

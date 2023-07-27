@@ -17,6 +17,7 @@ func _ready():
 	if Globals.player_phase_score["phase2"] >= 56:
 		$PhasesGridContainer/Phase3Button.texture_normal = load("res://assets/PhasesScreen/button_phase_3.png")
 		$PhasesGridContainer/Phase3Button.texture_hover = load("res://assets/PhasesScreen/button_phase_3_dark.png")
+	print(Globals.player_phase_score)
 
 
 # PT_BR: Abre a cena da primeira fase

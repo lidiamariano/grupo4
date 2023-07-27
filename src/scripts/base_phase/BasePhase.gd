@@ -42,6 +42,9 @@ onready var max_score = Globals.phases_max_score[ Globals.phases_keys[phase_key]
 
 
 func _ready():
+	  # Reset total_score when the game restarts
+	# Resto do código...
+
 	get_node("UserInfoLabel").text = "Você está logado como: " + Globals.userinfo.email
 	# PT_BR: Toca a música da fase
 	# EN_US: Plays the phase music
@@ -87,24 +90,24 @@ func _process(_delta):
 		
 	if profile_bento != null:
 		_send_hover_effect_in_file(profile_bento)
-		
-
+	
 # PT_BR (1): Função para atualizar a pontuação do jogador
 # PT_BR (2): Parâmetro: new_value int
 # EN_US (1): Function to update the player's score
 # EN_US (2): Parameter: new_value int
 func _change_score(new_value): 
 	Globals.set_actual_score(Globals.actual_score + new_value)
+	Globals.total_score += new_value
 	var actual_score = Globals.actual_score
-	var result := float(actual_score * 100) / float(max_score)
+	Globals.result = float(actual_score * 100) / float(max_score)
 
-	if result > 73:
-		star3.value = clamp((result - 73), 0, 12)
-		star2.value = clamp((result - 56), 0, 17)
-	elif result > 56: 
-		star2.value = clamp((result - 56), 0, 17)
+	if Globals.result > 73:
+		star3.value = clamp((Globals.result - 73), 0, 12)
+		star2.value = clamp((Globals.result - 56), 0, 17)
+	elif Globals.result > 56: 
+		star2.value = clamp((Globals.result - 56), 0, 17)
 				
-	star1.value = clamp(result, 0, 56)
+	star1.value = clamp(Globals.result, 0, 56)
 	
 
 # PT_BR (1): Função para retornar um objeto a partir do seu node path

@@ -77,6 +77,7 @@ func _ready():
 	else:
 		result_description.bbcode_text = results_texts[3]
 		paula_image.texture = paula_execelent
+	
 
 
 func _process(_delta):
@@ -105,6 +106,8 @@ func _change_bar():
 		final_score.text = ("%00.0f" % count) + "%"
 		count += 0.5
 		yield(get_tree().create_timer(0.01), "timeout")
+	update_score()  # Adiciona a chamada à função `update_score(new_score)`
+  
 
 
 # PT_BR: Abre a cena de Fases
@@ -144,3 +147,12 @@ func _on_StarFull2_completed_change(_texture_progress_node):
 func _on_StarFull3_completed_change(_texture_progress_node):
 	score_bar.texture_progress = green_bar
 	audio_star3.play()
+
+func update_score():
+	var firestore_collection : FirestoreCollection = Firebase.Firestore.collection('userdata')
+	var up_task : FirestoreTask = firestore_collection.update(Globals.userinfo.email, {'score': Globals.player_phase_score})
+	var document : FirestoreDocument = yield(up_task, "task_finished")
+	print("Updated total score to: " + str(Globals.player_phase_score))
+
+
+
